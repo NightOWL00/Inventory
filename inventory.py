@@ -37,13 +37,16 @@ o/p: {item_1:['my college bag','4-May-2020',NO]}
 """
 
 import time
+
 inventory = dict()
+
+
 def ADD_ITEM(item):
     location = input("-> Location of item : ")
     date_of_keeping = input("-> Date of item : ")
     location_changed = input("-> Location changed : ")
-    data=[location,date_of_keeping,location_changed]
-    inventory[item]=data
+    data = [location, date_of_keeping, location_changed]
+    inventory[item] = data
     return inventory
 
 
@@ -53,7 +56,8 @@ def EDIT_ITEM():
     while choice == 'y':
         item_to_edit = input("-> Item to be edited : ").lower()
         print()
-        inventory_file_read = open("D:/Github/Inventory/inventory_text_data.txt","r+")
+        inventory_file_read = open(
+            "D:/Github/Inventory/inventory_text_data.txt", "r+")
         for i in inventory_file_read.readlines():
             # Below if statement is checking if the key of the key-value pair in the txt file is equal to the given item or not.
             # both item_to_edit and the key from the txt file are converted to lower case to reduce the error of inequality.
@@ -69,6 +73,7 @@ def EDIT_ITEM():
             print()
     inventory_file_read.close()
 
+
 def REMOVE_ITEM():
     pass
 
@@ -80,15 +85,24 @@ def SHOW_ITEMS():
 def CHANGES():
     pass
 
+def Add_to_txt_file(data):
+    inventory=dict()
+    with open("inventory_test_data.txt",'a') as f:
+        f.write(data)
+
+    
+
 flag = True
 while flag != False:
-    print(
-        "Functions are: \n1 for ADD_ITEM \n2 for EDIT_ITEM \n3 for REMOVE_ITEM \n4 for SHOW_INVENTORY \n5 for EXIT"
-    )
+    print("Functions are: \n1 for ADD_ITEM \n2 for EDIT_ITEM \n3 for REMOVE_ITEM \n4 for SHOW_INVENTORY \n5 for EXIT")
     choice = input().lower()
     if choice == "1":
         item = input("-> Add item : ")
-        ADD_ITEM(item)
+        data=str(ADD_ITEM(item))
+        data=data[1:-1]
+        print(data)
+        # {'01': ['laasd', 'uu', 'gdddgd'], '02': ['asf', 'dgng', 'etjt'], '03': ['asfj', 'agssga', 'asgnas'], '04': ['pqp', 'rpr', 'rwr'], '05': ['hhh', 'www', 'rrr']}
+        Add_to_txt_file(data)
 
     elif choice == "2":
         EDIT_ITEM()
