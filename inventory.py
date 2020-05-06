@@ -36,20 +36,38 @@ o/p: {item_1:['my college bag','4-May-2020',NO]}
 
 """
 
-
+import time
 inventory = dict()
-def ADD_ITEM():
-    item = input("-> Add item: ")
-    location = input("-> Location of item: ")
-    date_of_keeping = input("-> Date of item: ")
-    location_changed = input("-> Location changed: ")
+def ADD_ITEM(item):
+    location = input("-> Location of item : ")
+    date_of_keeping = input("-> Date of item : ")
+    location_changed = input("-> Location changed : ")
     data=[location,date_of_keeping,location_changed]
     inventory[item]=data
+    return inventory
 
 
 def EDIT_ITEM():
-    pass
-
+    choice = 'y'
+    bp = 0
+    while choice == 'y':
+        item_to_edit = input("-> Item to be edited : ").lower()
+        print()
+        inventory_file_read = open("D:/Github/Inventory/inventory_text_data.txt","r+")
+        for i in inventory_file_read.readlines():
+            # Below if statement is checking if the key of the key-value pair in the txt file is equal to the given item or not.
+            # both item_to_edit and the key from the txt file are converted to lower case to reduce the error of inequality.
+            file_item = i.split(":")[0].lower()
+            if file_item == item_to_edit:
+                choice = 'n'
+                edited_items = ADD_ITEM(file_item)
+                # CHANGES()
+                print(edited_items)
+                break
+        if choice == 'y':
+            choice = input("Item not found !\nTry Again? (y/n) : ").lower()
+            print()
+    inventory_file_read.close()
 
 def REMOVE_ITEM():
     pass
@@ -59,6 +77,9 @@ def SHOW_ITEMS():
     pass
 
 
+def CHANGES():
+    pass
+
 flag = True
 while flag != False:
     print(
@@ -66,7 +87,8 @@ while flag != False:
     )
     choice = input().lower()
     if choice == "1":
-        ADD_ITEM()
+        item = input("-> Add item : ")
+        ADD_ITEM(item)
 
     elif choice == "2":
         EDIT_ITEM()
@@ -79,7 +101,8 @@ while flag != False:
         print(inventory)
 
     elif choice == "5":
-        print("Exiting program")
+        print("Exiting program...")
+        time.sleep(1)
         flag = False
     else:
         print("Wrong choice. Try again")
