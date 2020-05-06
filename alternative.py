@@ -7,6 +7,7 @@
 #       ['05', 'hhh', 'www', 'rrr']
 #   ]
 import os
+import ast
 import time
 
 # Global Variable start
@@ -35,7 +36,8 @@ def REMOVE_ITEM():
 
 def SHOW_ITEMS():
     f = get_from_txt_file()
-    print(i for i in f)
+    for i in f:
+        print("\nItem name : {} \nLocation : {} \nDate of keeping : {} \nLocation Changed : {}".format(i[0],i[1],i[2],i[3]))
 
 
 def add_to_txt_file(data):
@@ -43,9 +45,11 @@ def add_to_txt_file(data):
         f.write(data)
 
 def get_from_txt_file():
+    all_item_list=[]
     with open("datafile.txt",'r') as f:
-        all_item_list=f.readlines()
-    print(all_item_list)
+        for i in f.read().splitlines():
+            all_item_list.append(ast.literal_eval(i))
+    # print(all_item_list)                            <------------ 2D list here
     return all_item_list
 
 run = True
@@ -66,6 +70,9 @@ while(run == True):
         REMOVE_ITEM()
                 
     if choice == '4':
+        print("Items in inventory are: ",end=' ')
+        for i in get_from_txt_file():
+            print(i[0],end=' ')
         SHOW_ITEMS()
         
     if choice == '5':
