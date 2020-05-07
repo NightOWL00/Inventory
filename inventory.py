@@ -11,14 +11,11 @@ if os.path.exists("datafile.txt") == False: # to create the file "datafile.txt"
 
 # Global Variable end
 
-# Definitions
-
-
+# Functions
 def ADD_ITEM(item):
     location = input("-> Location of item : ")
     date_of_keeping = input("-> Date of item : ")
-    location_changed = input("-> Location changed : ")
-    itemlist = [item, location, date_of_keeping, location_changed]
+    itemlist = [item, location, date_of_keeping]
     return itemlist
 
 
@@ -47,8 +44,7 @@ def EDIT_ITEM():
                     break
 
         if choice == 'y':
-            choice = input("Item not found !\nTry Again? (y/n) : ").lower()
-            print()
+            choice = input("Item not found !\nTry Again? (y/n) : \n").lower()
 
 
 def UPDATE_ITEM(edited_items, list_of_items):
@@ -63,7 +59,7 @@ def SHOW_ITEMS(specific):
     f = get_from_txt_file()
     for i in f:
         if i[0] ==specific:
-            print("\n-> Item name : {} \n   Location : {} \n   Date of keeping : {} \n   Location Changed : {}\n".format(i[0],i[1],i[2],i[3]))
+            print("\n-> Item name : {} \n   Location : {} \n   Date of keeping : {} \n".format(i[0],i[1],i[2]))
             break
     else:
         print("Item does not exist\n")
@@ -114,3 +110,7 @@ while(run == True):
         run = False
     else:
         print("Wrong choice. Please try again.\n")
+
+# When testing un-comment the following code for ease
+# print("Removing datafile.txt")
+# os.remove("datafile.txt")
