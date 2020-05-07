@@ -19,7 +19,6 @@ def ADD_ITEM(item):
     date_of_keeping = input("-> Date of item : ")
     location_changed = input("-> Location changed : ")
     itemlist = [item, location, date_of_keeping, location_changed]
-    print("\nItem added !\n")
     return itemlist
 
 
@@ -33,20 +32,19 @@ def EDIT_ITEM():
         list_of_items = get_from_txt_file()
         inventory_file_read = open("datafile.txt", "r+")
         for i in list_of_items:
-            if i[0] == item_to_edit:
+            if i[0] == item_to_edit:        # Checking if the itemname given in the file matches the item_to_edit
                 choice = 'n'
                 
                 if what_to_do == '1':           # Case for Removing a item
                     UPDATE_ITEM(item_to_edit, list_of_items)
-                    print("\nItem Edited !\n")
-                    choice = 'n'
+                    print("{} Removed !\n".format(item_to_edit))
                     break
                 
                 elif what_to_do == '2':         # Case for Updating a item
                     edited_items = ADD_ITEM(i[0])
                     UPDATE_ITEM(edited_items[0],list_of_items)
-                    open("D:/Github/datafile.txt","a").write(str(edited_items)+'\n')
-                    print("\nItem Edited !\n")
+                    open("datafile.txt","a").write(str(edited_items)+'\n')      # Adding/Updating the item after removing the old one.
+                    print("\n{} Updated !\n".format(item_to_edit))
                     inventory_file_read.close()
                     break
         
@@ -56,10 +54,9 @@ def EDIT_ITEM():
 
 
 def UPDATE_ITEM(edited_items, list_of_items):
-    
-    inventory_edited = open("D:/Github/datafile.txt","w")
+    inventory_edited = open("datafile.txt","w")
     for i in list_of_items :
-        if i[0] != edited_items:
+        if i[0] != edited_items:        # All items are added except the item which you wanted to remove/update.
             inventory_edited.write(str(i)+'\n')
     inventory_edited.close()
 
@@ -67,7 +64,7 @@ def UPDATE_ITEM(edited_items, list_of_items):
 def SHOW_ITEMS():
     f = get_from_txt_file()
     for i in f:
-        print("\n->Item name : {} \n  Location : {} \n  Date of keeping : {} \n  Location Changed : {}".format(i[0],i[1],i[2],i[3]))
+        print("\n-> Item name : {} \n   Location : {} \n   Date of keeping : {} \n   Location Changed : {}".format(i[0],i[1],i[2],i[3]))
     print()
 
 
@@ -87,6 +84,7 @@ def get_from_txt_file():
 # main program 
 
 run = True
+print("\n-->> Welcome to the Inventory <<--\n")
 while(run == True):
     choice = input(
         "Functions are: \n1 for ADD_ITEM \n2 for EDIT_ITEM \n3 for SHOW_INVENTORY \n4 for EXIT\n")
@@ -95,22 +93,26 @@ while(run == True):
         item = input("-> Add item : ")
         data = str(ADD_ITEM(item))
         add_to_txt_file(data+"\n")
+        print("\nItem added !\n")
 
     if choice == '2':
         EDIT_ITEM()
-        pass
                 
     if choice == '3':
-        print("Items in inventory are: ",end=' ')
-        for i in get_from_txt_file():
-            print(i[0],end=', ')
-        print()
-        SHOW_ITEMS()
+        if len(get_from_txt_file()) == 0:
+            print("\nInventory Empty !\n")
+            continue
+        else :
+            print("\nItems in inventory are: ",end=' ')
+            for i in get_from_txt_file():
+                    print('< '+i[0],end=' > ')
+            print()
+            SHOW_ITEMS()
         
     if choice == '4':
-        print("Exiting program")
+        print("\nExiting program...")
         time.sleep(0.5)  # for sexy flow
         run = False
 
-print("removing datafile for ease")
+print("Removing data file for ease...")
 os.remove("datafile.txt")
