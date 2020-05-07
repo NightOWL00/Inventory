@@ -5,7 +5,7 @@ import ast
 import time
 
 # Global Variable start
-if os.path.exists("datafile.txt") == False:
+if os.path.exists("datafile.txt") == False: # to create the file "datafile.txt"
     f = open("datafile.txt", 'w')
     f.close()
 
@@ -26,8 +26,7 @@ def EDIT_ITEM():
     what_to_do = input("-> EDITING Functions :\n1 for REMOVE_ITEM\n2 for UPDATE_ITEM \n")
     choice = 'y'
     while choice == 'y':
-        item_to_edit = input("-> Item to be removed/updated : ").lower()
-        print()
+        item_to_edit = input("-> Item to be removed/updated : \n").lower()
         list_of_items = get_from_txt_file()
         inventory_file_read = open("datafile.txt", "r+")
         for i in list_of_items:
@@ -46,7 +45,7 @@ def EDIT_ITEM():
                     print("\n{} Updated !\n".format(item_to_edit))
                     inventory_file_read.close()
                     break
-        
+
         if choice == 'y':
             choice = input("Item not found !\nTry Again? (y/n) : ").lower()
             print()
@@ -89,12 +88,11 @@ run = True
 print("\n-->> Welcome to the Inventory <<--\n")
 while(run == True):
     choice = input(
-        "Functions are: \n1 for ADD_ITEM \n2 for EDIT_ITEM \n3 for SHOW_INVENTORY \n4 for EXIT\n")
+        "Functions are: \n1 for Adding an item \n2 for Editing the item in inventory \n3 for showing all items in inventory \n4 for exiting the program\nEnter choice: ")
     
     if choice == '1':
         item = input("-> Add item : ")
-        data = str(ADD_ITEM(item))
-        add_to_txt_file(data+"\n")
+        add_to_txt_file(str(ADD_ITEM(item))+"\n")
         print("\nItem added !\n")
 
     elif choice == '2':
@@ -103,13 +101,11 @@ while(run == True):
     elif choice == '3':
         if len(get_from_txt_file()) == 0:
             print("\nInventory Empty !\n")
-            continue
         else :
             print("\nItems in inventory are: ",end=' ')
             for i in get_from_txt_file():
                     print('< '+i[0],end=' > ')
-            print()
-            specific_item = input("Enter item to find: ")
+            specific_item = input("\nEnter item to find: ")
             SHOW_ITEMS(specific_item)
         
     elif choice == '4':
