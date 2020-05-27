@@ -82,7 +82,7 @@ run = True
 print("\n-->> Welcome to the Inventory <<--\n")
 while(run == True):
     choice = input(
-        "Functions are: \n1 for Adding an item \n2 for Editing the item in inventory \n3 for showing all items in inventory \n4 for exiting the program\nEnter choice: ")
+        "Functions are: \n- > 1 for Adding an item \n- > 2 for Editing the item in inventory \n- > 3 for showing all items in inventory \n- > 4 for exiting the program\nEnter choice: ")
     
     if choice == '1':
         item = input("-> Add item : ")
