@@ -25,7 +25,6 @@ def EDIT_ITEM():
     while choice == 'y':
         item_to_edit = input("-> Item to be removed/updated : \n").lower()
         list_of_items = get_from_txt_file()
-        inventory_file_read = open("datafile.txt", "r+")
         for i in list_of_items:
             if i[0] == item_to_edit:        # Checking if the itemname given in the file matches the item_to_edit
                 choice = 'n'
@@ -40,7 +39,6 @@ def EDIT_ITEM():
                     UPDATE_ITEM(edited_items[0],list_of_items)
                     open("datafile.txt","a").write(str(edited_items)+'\n')      # Adding/Updating the item after removing the old one.
                     print("\n{} Updated !\n".format(item_to_edit))
-                    inventory_file_read.close()
                     break
 
         if choice == 'y':
